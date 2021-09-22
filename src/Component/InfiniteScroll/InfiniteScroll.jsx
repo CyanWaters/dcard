@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 
-import { Spin } from "antd";
-
 import "./styles/index.css";
 
 export const InfiniteScroll = (props) => {
   const { loadMore, component, loading } = props;
   const [request, setRequest] = useState(false);
 
-  const handleOnScroll = () => {
+  const handleScroll = () => {
     const scrollTop =
       (document.documentElement && document.documentElement.scrollTop) ||
       document.body.scrollTop;
@@ -21,6 +19,7 @@ export const InfiniteScroll = (props) => {
       Math.ceil(scrollTop + clientHeight) >= scrollHeight;
 
     if (scrolledToBottom && !request && !loading) {
+      // prevent to load multiple times in short period
       setRequest(true);
       loadMore();
       setRequest(false);
@@ -29,10 +28,10 @@ export const InfiniteScroll = (props) => {
 
   useEffect(() => {
     // mount
-    window.addEventListener("scroll", handleOnScroll);
+    window.addEventListener("scroll", handleScroll);
     // unmount
     return () => {
-      window.removeEventListener("scroll", handleOnScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
   return (

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Input, Layout, Button, Table } from "antd";
 
 import { InfiniteScroll } from "../InfiniteScroll";
@@ -71,7 +71,7 @@ export const App = () => {
   const loadMore = useCallback(() => {
     setPage(page + 1);
   }, [page]);
-  const component = (
+  const tableComponenet = (
     <Table
       className="repo-table"
       dataSource={dataSource}
@@ -98,7 +98,11 @@ export const App = () => {
         <Content>
           <div>
             <p className="field-name">Repoitory Name:</p>
-            <Input placeholder="Repo Name" onChange={onChangeRepoName} />
+            <Input
+              data-testid="repoName"
+              placeholder="Repo Name"
+              onChange={onChangeRepoName}
+            />
           </div>
           <div>
             <p className="field-name"> Per Page Count:</p>
@@ -137,7 +141,7 @@ export const App = () => {
             <InfiniteScroll
               key={`${count}+${page}+${loading}`}
               loadMore={loadMore}
-              component={component}
+              component={tableComponenet}
               loading={loading}
             />
           )}
