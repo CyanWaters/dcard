@@ -1,0 +1,36 @@
+.header {
+  color: #fff;
+  background: #7dbcea;
+  line-height: 5em;
+  padding-left: 1em;
+}
+
+.content {
+  background: #fff;
+  line-height: 50em;
+}
+
+.field-name {
+  display: inline-block;
+  margin-right: 1em;
+  margin-left: 1em;
+}
+
+.repo-table {
+  margin-left: 1em;
+}
+
+.button-align-center {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.data-loading {
+  display: block;
+  text-align: center;
+  background-color: #fff;
+  border: 0;
+  font-size: 2rem;
+  margin-top: 1em;
+}

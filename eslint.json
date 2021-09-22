@@ -1,0 +1,51 @@
+{
+    "defaultSeverity": "error",
+    "jsRules": {},
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "sourceType": "module"
+    },
+    "rules": {
+      "quotemark": [
+        true,
+        "single",
+        "jsx-double",
+        "avoid-escape",
+        "avoid-template"
+      ],
+      "semicolon": [true, "never"],
+      "ordered-imports": false,
+      "object-literal-sort-keys": false,
+      "object-literal-key-quotes": [true, "as-needed"],
+      "no-submodule-imports": false,
+      "member-access": [true, "no-public"],
+      "max-classes-per-file": false,
+      "no-console": [false, "log", "error", "trace"],
+      "no-implicit-dependencies": [false, "dev"],
+      "no-empty-interface": false,
+      "no-empty": false,
+      "jsx-no-multiline-js": false,
+      "jsx-boolean-value": false,
+      "no-unused-expression": false,
+      "no-object-literal-type-assertion": false,
+      "arrow-parens": [true, "ban-single-arg-parens"],
+      "array-type": false,
+      "prefer-const": [true, { "destructuring": "all" }],
+      "no-shadowed-variable": [true, { "temporalDeadZone": false }],
+      "trailing-comma": [
+        true,
+        {
+          "esSpecCompliant": true
+        }
+      ],
+      "jsx-wrap-multiline": false,
+      "one-variable-per-declaration": false,
+      "no-var-requires": false,
+      "no-namespace": [true, "allow-declarations"],
+      "jsx-curly-spacing": false,
+      "jsx-no-lambda": false,
+      "no-reference": false
+    },
+    "rulesDirectory": []
+  }
+  

@@ -1,0 +1,23 @@
+{
+  "git.ignoreLimitWarning": true,
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "jest.autoEnable": false,
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#bdbdbd",
+    "titleBar.inactiveBackground": "#bdbdbd99",
+    "titleBar.activeForeground": "#15202b",
+    "titleBar.inactiveForeground": "#15202b99",
+    "statusBar.background": "#bdbdbd",
+    "statusBarItem.hoverBackground": "#a3a3a3",
+    "statusBar.foreground": "#15202b",
+    "activityBar.activeBackground": "#d6d6d6",
+    "activityBar.activeBorder": "#cf70cf",
+    "activityBar.background": "#d6d6d6",
+    "activityBar.foreground": "#15202b",
+    "activityBar.inactiveForeground": "#15202b99",
+    "activityBarBadge.background": "#cf70cf",
+    "activityBarBadge.foreground": "#15202b"
+  },
+  "peacock.color": "BDBDBD"
+}
