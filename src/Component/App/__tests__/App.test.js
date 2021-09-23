@@ -56,10 +56,9 @@ describe("search functions should be well", () => {
     // mockAPIData(url);
 
     // to ensure request call again
-    // await act(async () => {
-    //   result.rerender();
-    // });
-    // const request = moxios.requests.mostRecent();
-    // expect(request.url).toEqual(url);
+    await act(async () => {
+      result.rerender();
+    });
+    const request = moxios.requests.mostRecent();
   });
 });

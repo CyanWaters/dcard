@@ -5,12 +5,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ### `Architecture`
 
 App.jsx is the main page which have placed 2 available columns and 1 disable column to let users to do the search. \
-Also, we have the debounce function to prevent the multiple API calls when user try to typing repo name. Currently, I set the delay time as 600ms. \
+Also, we have the debounce function to prevent the multiple API calls when user try to typing repo name. Currently, I set the delay time as 600ms.
 
 InfiniteScroll has 3 props, which are following: \
 loadMore: executed when scorll down to the bottom. \
 component: render the component(ex. Table or Tree list ) whatever you want. \
-loading: the state of API call. If true, it means that we still need to wait for data. \
+loading: the state of API call. If true, it means that we still need to wait for data.
 
 ## Available Scripts
 

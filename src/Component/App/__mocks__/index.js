@@ -1,9 +1,9 @@
 import moxios from "moxios";
 
-const BASE_URL = "https://api.github.com/search/repositories";
+const BASE_URL = /https:\/\/api.github.com\/search\/repositories.*/;
 
 export const mockAPIData = (url = "") => {
-  moxios.stubOnce("get", url || BASE_URL, {
+  moxios.stubRequest("get", url || BASE_URL, {
     status: 200,
     response: {
       total_count: 2069,
