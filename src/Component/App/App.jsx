@@ -135,6 +135,7 @@ export const App = () => {
             <div>
               <p className="field-name"> Per Page Count:</p>
               <Input
+                data-testid="per-page-count"
                 type="number"
                 placeholder="Count"
                 min={1}

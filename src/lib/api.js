@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const GITHUB_URL = "https://api.github.com";
-const SERACH_URL = `${GITHUB_URL}/search/repositories`;
+export const GITHUB_URL = "https://api.github.com";
+export const SERACH_URL = `${GITHUB_URL}/search/repositories`;
 
 export const searchRepoFromGitHub = async (repoName, count, page) => {
   const URL = `${SERACH_URL}?q=${repoName}&per_page=${count}&page=${page}`;

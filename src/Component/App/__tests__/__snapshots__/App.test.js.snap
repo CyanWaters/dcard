@@ -90,6 +90,7 @@ exports[`should render well 1`] = `
         </p>
         <input
           className="ant-input"
+          data-testid="per-page-count"
           min={1}
           onBlur={[Function]}
           onChange={[Function]}

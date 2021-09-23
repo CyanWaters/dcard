@@ -61,4 +61,36 @@ describe("search functions should be well", () => {
     });
     const request = moxios.requests.mostRecent();
   });
+
+  test("Count was changed", async () => {
+    mockAPIData();
+    let result;
+    await act(async () => {
+      result = render(
+        <MemoryRouter>
+          <App />
+        </MemoryRouter>
+      );
+    });
+    const count = "40";
+
+    await act(async () => {
+      fireEvent.change(result.getByTestId("per-page-count"), {
+        target: {
+          value: count,
+        },
+      });
+    });
+
+    const searchInput = result.getByTestId("per-page-count");
+    expect(searchInput.value).toEqual(count);
+    // const url = `https://api.github.com/search/repositories?q=${repoName}&per_page=30&page=1`;
+    // mockAPIData(url);
+
+    // to ensure request call again
+    await act(async () => {
+      result.rerender();
+    });
+    const request = moxios.requests.mostRecent();
+  });
 });
