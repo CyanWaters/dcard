@@ -44,7 +44,7 @@ export const InfiniteScroll = (props) => {
     <>
       {component}{" "}
       {(() => {
-        if (true) {
+        if (loading) {
           return (
             <div className="data-loading">
               <LoadingOutlined />
