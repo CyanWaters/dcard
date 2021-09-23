@@ -3,7 +3,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 
 export const InfiniteScroll = (props) => {
   const { loadMore, component, loading } = props;
-  const [request, setRequest] = useState(false);
+  // const [request, setRequest] = useState(false);
 
   const handleScroll = () => {
     const scrollTop =
@@ -14,12 +14,11 @@ export const InfiniteScroll = (props) => {
       document?.documentElement.clientHeight || window.innerHeight;
     const scrolledToBottom =
       Math.ceil(scrollTop + clientHeight) >= scrollHeight;
-
-    if (scrolledToBottom && !request && !loading) {
+    if (scrolledToBottom && !loading) {
       // prevent to load multiple times in short period
-      setRequest(true);
+      // setRequest(true);
       loadMore();
-      setRequest(false);
+      // setRequest(false);
     }
   };
 
