@@ -1,5 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Input, Layout, Button, Table } from "antd";
+import { Input, Layout, Table } from "antd";
+import {
+  createFromIconfontCN,
+  LoadingOutlined,
+  GithubOutlined,
+  FileOutlined,
+} from "@ant-design/icons";
 
 import { InfiniteScroll } from "../InfiniteScroll";
 import { searchRepoFromGitHub, debounce } from "../../lib";
@@ -9,6 +15,10 @@ import "./styles/index.css";
 const DEFAULT_COUNT = 30;
 const DEFAULT_PAGE = 1;
 const DELAY_INPUT_TIME = 600;
+
+const IconFont = createFromIconfontCN({
+  scriptUrl: "//at.alicdn.com/t/font_8d5l8fzk5b87iudi.js",
+});
 
 export const App = () => {
   const [repoName, setRepoName] = useState("");
@@ -94,7 +104,19 @@ export const App = () => {
   return (
     <div className="app">
       <Layout>
-        <Header className="header">GitHub</Header>
+        <Header className="header">
+          <a
+            className="link"
+            href="https://github.com/CyanWaters"
+            target="popup"
+          >
+            <GithubOutlined /> GitHub
+          </a>
+          <div className="float-right link">
+            <IconFont type="icon-tuichu" />
+          </div>
+          <div className="clear-float" />
+        </Header>
         <Content>
           <div>
             <p className="field-name">Repoitory Name:</p>
@@ -133,9 +155,14 @@ export const App = () => {
           </div> */}
           {disalbeButton || !dataSource.length ? (
             loading ? (
-              <div className="data-loading">Loading...</div>
+              <div className="data-loading">
+                <LoadingOutlined />
+              </div>
             ) : (
-              <div className="field-name">None</div>
+              <div className="field-name no-data">
+                <FileOutlined />
+                No Data
+              </div>
             )
           ) : (
             <InfiniteScroll

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-
-import "./styles/index.css";
+import { LoadingOutlined } from "@ant-design/icons";
 
 export const InfiniteScroll = (props) => {
   const { loadMore, component, loading } = props;
@@ -39,7 +38,11 @@ export const InfiniteScroll = (props) => {
       {component}{" "}
       {(() => {
         if (true) {
-          return <div className="data-loading">Loading..</div>;
+          return (
+            <div className="data-loading">
+              <LoadingOutlined />
+            </div>
+          );
         }
       })()}
     </>
