@@ -15,6 +15,7 @@ import "./styles/index.css";
 const DEFAULT_COUNT = 30;
 const DEFAULT_PAGE = 1;
 const DELAY_INPUT_TIME = 600;
+const GITHUB_URL = "https://github.com/CyanWaters";
 
 const IconFont = createFromIconfontCN({
   scriptUrl: "//at.alicdn.com/t/font_8d5l8fzk5b87iudi.js",
@@ -26,8 +27,11 @@ export const App = () => {
   const [page, setPage] = useState(DEFAULT_PAGE);
   const [loading, setLoading] = useState(false);
   const [dataSource, setDataSource] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const { Header, Footer, Sider, Content } = Layout;
+
+  const disalbeButton = !(repoName && page && count);
   // Table Columns
   const columns = [
     {
@@ -57,25 +61,29 @@ export const App = () => {
     debounce(() => setPage(e?.target?.value), DELAY_INPUT_TIME)();
   }, []);
 
-  const disalbeButton = !(repoName && page && count);
-
   const getRepo = async (cleanDataSource = false) => {
     setLoading(true);
-    const { items, totalCount } = await searchRepoFromGitHub(
-      repoName,
-      count,
-      page
-    );
-    const data = items.map((item, index) => {
-      const obj = {
-        key: index,
-        name: item?.name,
-        url: item?.url,
-        updated_at: item?.updated_at,
-      };
-      return obj;
-    });
-    setDataSource(cleanDataSource ? data : dataSource.concat(data));
+    const {
+      items,
+      totalCount,
+      error = false,
+      errorMessage: err = "",
+    } = await searchRepoFromGitHub(repoName, count, page);
+    if (error) {
+      setErrorMessage(err);
+    } else {
+      const data = items.map((item, index) => {
+        const obj = {
+          key: index,
+          name: item?.name,
+          url: item?.url,
+          updated_at: item?.updated_at,
+        };
+        return obj;
+      });
+      setDataSource(cleanDataSource ? data : dataSource.concat(data));
+      setErrorMessage("");
+    }
     setLoading(false);
   };
   const loadMore = useCallback(() => {
@@ -92,6 +100,7 @@ export const App = () => {
 
   useEffect(() => {
     if (!disalbeButton) {
+      // detect repoName is the same or not
       getRepo(true);
     }
   }, [repoName]);
@@ -102,80 +111,82 @@ export const App = () => {
   }, [page, count]);
 
   return (
-    <div className="app">
-      <Layout>
-        <Header className="header">
-          <a
-            className="link"
-            href="https://github.com/CyanWaters"
-            target="popup"
-          >
-            <GithubOutlined /> GitHub
-          </a>
-          <div className="float-right link">
-            <IconFont type="icon-tuichu" />
-          </div>
-          <div className="clear-float" />
-        </Header>
-        <Content>
-          <div>
-            <p className="field-name">Repoitory Name:</p>
-            <Input
-              data-testid="repoName"
-              placeholder="Repo Name"
-              onChange={onChangeRepoName}
-            />
-          </div>
-          <div>
-            <p className="field-name"> Per Page Count:</p>
-            <Input
-              type="number"
-              placeholder="Count"
-              min={1}
-              onChange={onChangeCount}
-              defaultValue={count}
-            />
-          </div>
-          <div>
-            <p className="field-name"> Page:</p>
-            <Input
-              type="number"
-              placeholder="Page"
-              min={1}
-              onChange={onChangePage}
-              value={page}
-              disabled
-            />
-          </div>
-          {/* Search Button */}
-          {/* <div className="button-align-center">
+    <>
+      <div className="app">
+        <Layout>
+          <Header className="header">
+            <a className="link" href={GITHUB_URL} target="popup">
+              <GithubOutlined /> GitHub
+            </a>
+            <div className="float-right link">
+              <IconFont type="icon-tuichu" />
+            </div>
+            <div className="clear-float" />
+          </Header>
+          <Content>
+            <div>
+              <p className="field-name">Repoitory Name:</p>
+              <Input
+                data-testid="repoName"
+                placeholder="Repo Name"
+                onChange={onChangeRepoName}
+              />
+            </div>
+            <div>
+              <p className="field-name"> Per Page Count:</p>
+              <Input
+                type="number"
+                placeholder="Count"
+                min={1}
+                onChange={onChangeCount}
+                defaultValue={count}
+              />
+            </div>
+            <div>
+              <p className="field-name"> Page:</p>
+              <Input
+                type="number"
+                placeholder="Page"
+                min={1}
+                onChange={onChangePage}
+                value={page}
+                disabled
+              />
+            </div>
+            {/* Search Button */}
+            {/* <div className="button-align-center">
             <Button type="primary" disabled={disalbeButton} onClick={getRepo}>
               Search
             </Button>
           </div> */}
-          {disalbeButton || !dataSource.length ? (
-            loading ? (
-              <div className="data-loading">
-                <LoadingOutlined />
-              </div>
-            ) : (
+            {errorMessage ? (
               <div className="field-name no-data">
-                <FileOutlined />
-                No Data
+                {`Something went wrong: ${errorMessage}`}
               </div>
-            )
-          ) : (
-            <InfiniteScroll
-              key={`${count}+${page}+${loading}`}
-              loadMore={loadMore}
-              component={tableComponenet}
-              loading={loading}
-            />
-          )}
-        </Content>
-        {/* <Footer>Footer</Footer> */}
-      </Layout>
-    </div>
+            ) : disalbeButton || !dataSource.length ? (
+              loading ? (
+                <div className="data-loading">
+                  <LoadingOutlined />
+                </div>
+              ) : (
+                <div className="field-name no-data">
+                  <FileOutlined />
+                  No Data
+                </div>
+              )
+            ) : (
+              <InfiniteScroll
+                key={`${count}+${page}+${loading}`}
+                loadMore={loadMore}
+                component={tableComponenet}
+                loading={loading}
+              />
+            )}
+          </Content>
+          {/* <Footer>Footer</Footer> */}
+        </Layout>
+      </div>
+    </>
   );
 };
 

@@ -31,6 +31,7 @@ test("should render well", async () => {
 
 describe("search functions should be well", () => {
   test("Repo Name was changed", async () => {
+    mockAPIData();
     let result;
     await act(async () => {
       result = render(
@@ -51,13 +52,13 @@ describe("search functions should be well", () => {
 
     const searchInput = result.getByTestId("repoName");
     expect(searchInput.value).toEqual(repoName);
-    const url = `https://api.github.com/search/repositories?q=${repoName}&per_page=30&page=1`;
-    mockAPIData(url);
+    // const url = `https://api.github.com/search/repositories?q=${repoName}&per_page=30&page=1`;
+    // mockAPIData(url);
 
     // to ensure request call again
-    await act(async () => {
-      result.rerender();
-    });
+    // await act(async () => {
+    //   result.rerender();
+    // });
     const request = moxios.requests.mostRecent();
     expect(request.url).toEqual(url);
   });

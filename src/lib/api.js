@@ -11,6 +11,6 @@ export const searchRepoFromGitHub = async (repoName, count, page) => {
     const items = repos?.items || [];
     return { items, totalCount };
   } catch (e) {
-    throw e;
+    return { errorMessage: e?.message || e, error: true };
   }
 };
